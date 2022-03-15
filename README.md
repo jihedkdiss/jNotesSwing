@@ -49,7 +49,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![jNotesSwing Screenshot](https://raw.githubusercontent.com/jihedkdiss/jNotesSwing/main/Pictures/Screenshot.png)
+<p align="center">
+  <a href="https://github.com/jihedkdiss/jNotesSwing">
+    <img src="https://raw.githubusercontent.com/jihedkdiss/jNotesSwing/main/Pictures/Screenshot.PNG" alt="Screenshot">
+  </a>
+</p>
 
 <b>jNotesSwing</b> is an open-source GUI note taking app coded entirely in Java. The UI is built using Swing and NetBeans as GUI Builder.
 The app relies mainly on the JTable component to store and deal with items.
