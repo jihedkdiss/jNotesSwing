@@ -2,20 +2,22 @@
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.io.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Jihed
  */
-
 public class NotesTakingApp extends javax.swing.JFrame {
 
     DefaultTableModel Notes = new DefaultTableModel();
-    
+
     /**
      * Creates new form Tasks
      */
-    
     public NotesTakingApp() {
         setLayout(null);
         setUndecorated(true);
@@ -24,11 +26,12 @@ public class NotesTakingApp extends javax.swing.JFrame {
         System.out.println("Coded by Jihed Kdiss (@jihedkdiss)");
         Notes.addColumn("");
         notes.setModel(Notes);
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             String note = "  Note " + i;
             Object ary[] = {note};
             Notes.addRow(ary);
         }
+        updateRemainingTasks();
     }
 
     /**
@@ -48,6 +51,9 @@ public class NotesTakingApp extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         notes = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        exportBtn = new javax.swing.JButton();
+        importBtn = new javax.swing.JButton();
+        remainingTasks = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Notes Taking App");
@@ -106,7 +112,6 @@ public class NotesTakingApp extends javax.swing.JFrame {
         notes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         notes.setIntercellSpacing(new java.awt.Dimension(5, 5));
         notes.setRowHeight(25);
-        notes.setRowSorter(null);
         notes.setShowVerticalLines(false);
         notes.getTableHeader().setResizingAllowed(false);
         notes.getTableHeader().setReorderingAllowed(false);
@@ -115,7 +120,25 @@ public class NotesTakingApp extends javax.swing.JFrame {
         jScrollPane1.setViewportView(notes);
 
         jLabel2.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        jLabel2.setText("Version 1.0");
+        jLabel2.setText("Version 1.1");
+
+        exportBtn.setText("Export");
+        exportBtn.setToolTipText("");
+        exportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportBtnActionPerformed(evt);
+            }
+        });
+
+        importBtn.setText("Import");
+        importBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importBtnActionPerformed(evt);
+            }
+        });
+
+        remainingTasks.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        remainingTasks.setText("No tasks remaining");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,8 +158,13 @@ public class NotesTakingApp extends javax.swing.JFrame {
                         .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(exportBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(importBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(remainingTasks)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)))
                 .addContainerGap())
         );
@@ -153,15 +181,27 @@ public class NotesTakingApp extends javax.swing.JFrame {
                         .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(exportBtn)
+                    .addComponent(importBtn)
+                    .addComponent(remainingTasks))
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void updateRemainingTasks() {
+        if (notes.getRowCount() != 0) {
+            remainingTasks.setText(notes.getRowCount() + " tasks remaining");
+        } else {
+            remainingTasks.setText("No tasks remaining");
+        }
+    }
 
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         System.exit(0);
@@ -171,15 +211,60 @@ public class NotesTakingApp extends javax.swing.JFrame {
         String NewTask = "  " + JOptionPane.showInputDialog(null, "Enter your task", "New Task", 1);
         Object ary[] = {NewTask};
         Notes.addRow(ary);
+        updateRemainingTasks();
     }//GEN-LAST:event_addMouseClicked
 
     private void clearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMouseClicked
-        while(Notes.getRowCount() != 0) Notes.removeRow(0);
+        while (Notes.getRowCount() != 0) {
+            Notes.removeRow(0);
+        }
+        updateRemainingTasks();
     }//GEN-LAST:event_clearMouseClicked
 
     private void removeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeMouseClicked
         Notes.removeRow(notes.getSelectedRow());
+        updateRemainingTasks();
     }//GEN-LAST:event_removeMouseClicked
+
+    private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
+        System.out.println("Export button pressed");
+        String location = JOptionPane.showInputDialog(null, "Enter export location", "Export", 1);
+        PrintStream out;
+        try {
+            out = new PrintStream(new FileOutputStream(location));
+            for (int i = 0; i < notes.getRowCount(); i++) {
+                String note = notes.getModel().getValueAt(i, 0) + "";
+                out.println(note);
+            }
+        } catch (Exception e) {
+            System.out.println("  [!] " + e);
+        }
+        JOptionPane.showMessageDialog(null, "Notes exported successfully", "Export", 1);
+        updateRemainingTasks();
+    }//GEN-LAST:event_exportBtnActionPerformed
+
+    private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
+        try {
+            System.out.println("Import button pressed");
+            String location = JOptionPane.showInputDialog(null, "Enter import location", "Export", 1);
+            File importFile = new File(location);
+            Scanner importScanner = new Scanner(importFile);
+            while (Notes.getRowCount() != 0) {
+                Notes.removeRow(0);
+            }
+            int line = 0;
+            while (importScanner.hasNextLine()) {
+                String NewTask = importScanner.nextLine();
+                Object ary[] = {NewTask};
+                Notes.addRow(ary);
+                line++;
+            }
+            JOptionPane.showMessageDialog(null, "Notes exported successfully", "Export", 1);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(NotesTakingApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        updateRemainingTasks();
+    }//GEN-LAST:event_importBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,7 +273,7 @@ public class NotesTakingApp extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -221,10 +306,13 @@ public class NotesTakingApp extends javax.swing.JFrame {
     private javax.swing.JLabel add;
     private javax.swing.JLabel clear;
     private javax.swing.JLabel exit;
+    private javax.swing.JButton exportBtn;
+    private javax.swing.JButton importBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable notes;
+    private javax.swing.JLabel remainingTasks;
     private javax.swing.JLabel remove;
     // End of variables declaration//GEN-END:variables
 }
