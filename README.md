@@ -51,7 +51,7 @@
 
 <p align="center">
   <a href="https://github.com/jihedkdiss/jNotesSwing">
-    <img src="https://raw.githubusercontent.com/jihedkdiss/jNotesSwing/main/Pictures/Screenshot.PNG" alt="Screenshot">
+    <img src="https://raw.githubusercontent.com/jihedkdiss/jNotesSwing/main/Pictures/Screenshot.png" alt="Screenshot">
   </a>
 </p>
 
