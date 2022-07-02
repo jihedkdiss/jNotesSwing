@@ -59,6 +59,13 @@
 The app relies mainly on the JTable component to store and deal with items.
 You can support the development of jNotesSwing. Star this repository! 🌟
 
+### Features
+
+* Very lightweight (18 KB only) 
+* Runs on every major OS (Windows, Linux, MacOS) from a single executable (.jar)
+* Easy interface with a clean design
+* You can export and import notes to/from different devices
+* You can sort notes using alphabetic order (ascending or descending)
 
 ### Built With
 
