@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/jihedkdiss/jNotesSwing">
-    <img src="https://github.com/jihedkdiss/jNotesSwing/blob/main/Pictures/Logo.png" alt="Logo" width="80" height="80">
+    <img src="Pictures/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">jNotesSwing</h3>
@@ -51,7 +51,7 @@
 
 <p align="center">
   <a href="https://github.com/jihedkdiss/jNotesSwing">
-    <img src="https://raw.githubusercontent.com/jihedkdiss/jNotesSwing/main/Pictures/Screenshot.png" alt="Screenshot">
+    <img src="Pictures/Screenshot.png" alt="Screenshot">
   </a>
 </p>
 
