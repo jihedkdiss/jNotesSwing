@@ -1,4 +1,5 @@
 
+import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ public class jNotesSwing extends javax.swing.JFrame {
         setLayout(null);
         setUndecorated(true);
         setShape(new RoundRectangle2D.Double(0, 0, 480, 480, 25, 25));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
         initComponents();
         System.out.println("Coded by Jihed Kdiss (@jihedkdiss)");
         Notes.addColumn("");
@@ -57,7 +59,7 @@ public class jNotesSwing extends javax.swing.JFrame {
         remainingTasks = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Notes Taking App");
+        setTitle("jNotes by Jihed Kdiss");
         setLocation(new java.awt.Point(0, 0));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
