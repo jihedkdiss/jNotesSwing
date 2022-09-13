@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/jihedkdiss/jNotesSwing">
-    <img src="Pictures/Logo.png" alt="Logo" width="80" height="80">
+    <img src="Pictures/jNotesLogo.png" alt="Logo" width="100" height="100">
   </a>
 
   <h3 align="center">jNotesSwing</h3>
